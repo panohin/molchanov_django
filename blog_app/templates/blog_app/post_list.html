@@ -1,9 +1,31 @@
-{% extends 'blog_app/base.html' %}
+{% extends 'base.html' %}
 
 {% block title %}
-{{ hello }}
+{{ title }}
 {% endblock %}
 
 {% block content %}
-{{ hello }}
+<h1 class='mb-5'>Posts:</h1>
+{% for post in posts %}
+    <div class="card mb-4">
+        <div class="card-header">
+          {{ post.date_published }}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ post.title }}
+          </h5>
+          <p class="card-text">
+            {{ post.body }}
+          </p>
+          <a href="{{ post.get_absolute_url }}" class="btn btn-light">Читать</a>
+        </div>
+    </div>
+{% endfor %}
 {% endblock %}
+
+
+
+
+
+

@@ -6,8 +6,8 @@
 
 
 {% block content %}
-<h2>
-    {{ tag.title }}
+<h2 class="mb-5">
+    Posts with '{{ tag.title }}' tag
 </h2>
 {% for post in tag.posts.all %}
 <p>{{ post }}</p>

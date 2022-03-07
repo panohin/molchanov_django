@@ -6,20 +6,8 @@
 
 {% block content %}
 <h1 class='mb-5'>Tags:</h1>
-{% for tag in tags %}
-<div class="card">
-    <div class="card-header">
-      {{ tag.title }}
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">
-        {{ tag.title }}
-      </h5>
-      <p class="card-text">
-        {{ tag.title }}
-      </p>
-      
-    </div>
-  </div>
-  {% endfor %}
+{% for elem in tags %}
+{% include 'blog_app/includes/card_template.html' %}
+{% endfor %}
+
 {% endblock %}

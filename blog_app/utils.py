@@ -25,3 +25,26 @@ class ObjectCreateMixin:
             new_post = bound_form.save()
             return redirect(new_post)
         return render(request, self.template, context={'form':bound_form})
+
+class ObjectUpdateMixin:
+    model_name = None
+    form_model = None
+    template = None
+    
+    def get(self, request, slug_from_request: str):
+        model_name = self.model_name()
+        object = model_name.objects.get(slug__iexact=slug_from_request)
+        bound_form = form_model(instance=object)
+        return render(request, self.template, context={'form':bound_form, 'object':object})
+    
+    def post(self, request, slug_from_request: str):
+        model_name = self.model_name()
+        object = model_name.objects.get(slug__iexact=slug_from_request)
+        bound_form = self.form_model(request.POST, instance=object)
+
+        if bound_form.is_valid():
+            new_object = bound_form.save()
+            return redirect(new_object)
+        return render(request, self.template, context={'form':bound_form, 'object':object})
+
+

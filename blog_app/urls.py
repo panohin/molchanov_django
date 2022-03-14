@@ -8,5 +8,6 @@ urlpatterns = [
     path('post/create', views.PostCreate.as_view(), name='post_create_url'),
     path('post/<str:slug_from_request>', views.PostDetail.as_view(), name='post_details'),
     path('tag/create', views.TagCreate.as_view(), name='tag_create_url'),
+    path('tag/<str:slug_from_request>/update', views.TagUpdate.as_view(), name='tag_update_url'),
     path('tag/<str:slug_from_request>', views.TagDetail.as_view(), name='tag_details_url')
 ]

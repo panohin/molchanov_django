@@ -7,7 +7,7 @@ from django.views.generic import View
 from blog_app.forms import TagForm
 
 from .models import Post, Tag
-from .utils import ObjectCreateMixin, ObjectDetailMixin
+from .utils import *
 from .forms import TagForm, PostForm
 
 
@@ -30,16 +30,6 @@ def tag_list(request):
 class PostCreate(ObjectCreateMixin, View):
     form_model = PostForm
     template = 'blog_app/post_create.html'
-    # def get(self, request):
-    #     form = PostForm()
-    #     return render(request, 'blog_app/post_create.html', context={'form':form})
-    
-    # def post(self, request):
-    #     bound_form = PostForm(request.POST)
-    #     if bound_form.is_valid():
-    #         new_post = bound_form.save()
-    #         return redirect(new_post)
-    #     return render(request, 'blog_app/post_create.html', context={'form':bound_form})
 
 
 class TagDetail(ObjectDetailMixin, View):
@@ -52,14 +42,22 @@ class TagDetail(ObjectDetailMixin, View):
 class TagCreate(ObjectCreateMixin, View):
     form_model = TagForm
     template = 'blog_app/tag_create.html'
-    # def get(self, request):
-    #     form = TagForm()
-    #     return render(request, 'blog_app/tag_create.html', context={'form':form})
+ 
+class TagUpdate(ObjectUpdateMixin, View):
+    model_name = Tag
+    form_model = TagForm
+    template = 'blog_app/tag_update_form.html'
     
-    # def post(self, request):
-    #     bound_form = TagForm(request.POST)
+    
+    # def get(self, request, slug_from_request: str):
+    #     tag = Tag.objects.get(slug__iexact=slug_from_request)
+    #     bound_form = TagForm(instance=tag)
+    #     return render(request, 'blog_app/tag_update_form.html', context={'form':bound_form, 'tag':tag})
+    # def post(self, request, slug_from_request: str):
+    #     tag = Tag.objects.get(slug__iexact=slug_from_request)
+    #     bound_form = TagForm(request.POST, instance=tag)
 
     #     if bound_form.is_valid():
     #         new_tag = bound_form.save()
     #         return redirect(new_tag)
-    #     return render(request, 'blog_app/tag_create.html', context={'form':bound_form})
+    #     return render(request, 'blog_app/tag_update_form.html', context={'form':bound_form, 'tag':tag})

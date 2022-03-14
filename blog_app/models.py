@@ -21,6 +21,9 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_details', kwargs={'slug_from_request':self.slug})
+
+    def get_update_url(self):
+        return reverse('tag_update_url', kwargs={'slug_from_request':self.slug})
     
     def __str__(self) -> str:
         return self.title

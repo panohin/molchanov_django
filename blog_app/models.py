@@ -23,7 +23,10 @@ class Post(models.Model):
         return reverse('post_details', kwargs={'slug_from_request':self.slug})
 
     def get_update_url(self):
-        return reverse('tag_update_url', kwargs={'slug_from_request':self.slug})
+        return reverse('post_update_url', kwargs={'slug_from_request':self.slug})
+
+    def get_delete_url(self):
+        return reverse('post_delete_url', kwargs={'slug_from_request':self.slug})
     
     def __str__(self) -> str:
         return self.title
@@ -33,14 +36,29 @@ class Post(models.Model):
             self.slug = gen_slug(self.title)
         super().save(*args, **kwargs)    
 
+    class Meta:
+        ordering = ['-date_published']
+
 class Tag(models.Model):
     title = models.CharField(max_length=50)
-    slug = models.SlugField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, unique=True, blank=True)
     
     def get_absolute_url(self):
         return reverse('tag_details_url', kwargs={'slug_from_request':self.slug})
     
+    def get_update_url(self):
+        return reverse('tag_update_url', kwargs={'slug_from_request':self.slug})
+
+    def get_delete_url(self):
+        return reverse('tag_delete_url', kwargs={'slug_from_request':self.slug})
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = gen_slug(self.title)
+        super().save(*args, **kwargs)
+    
     def __str__(self) -> str:
         return self.title
 
-    
+    class Meta:
+        ordering = ['title']

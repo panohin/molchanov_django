@@ -6,7 +6,7 @@
 
 {% block content %}
 <h1 class='mb-5'>Posts:</h1>
-{% for elem in posts %}
+{% for elem in page_object %}
   {% include 'blog_app/includes/card_template.html' %}  
   
 {% endfor %}
